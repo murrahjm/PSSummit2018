@@ -49,7 +49,8 @@ Function Get-IBDNSARecord {
 			}
 		} else {
 			write-verbose "Existing session to $script:IBgridmaster found"
-		}
+        }
+        #
         Write-Verbose "$FunctionName`:  Connecting to Infoblox device $script:IBgridmaster to retrieve Views"
         Try {
             $IBViews = Get-IBView -Type DNSView
