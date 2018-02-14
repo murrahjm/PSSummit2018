@@ -1,6 +1,6 @@
 Set-Location C:\scripts\githubrepos\PSSummit2018\demos
 . .\demohelperfunctions.ps1
-$gridmaster = 'gridmaster.domain.com'
+$gridmaster = 'ib-gridmaster.southcentralus.cloudapp.azure.com'
 $credential = get-credential
 New-IBWebSession -gridmaster $Gridmaster -Credential $credential
 
