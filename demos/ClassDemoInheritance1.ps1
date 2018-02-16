@@ -2,11 +2,11 @@ Class IB_ReferenceObject {
     #properties
     [String]$_ref
     #methods
-   hidden [String] Delete(
+    hidden [String] Delete(
        	[String]$Gridmaster,
 		[Object]$Session,
 		[String]$WapiVersion
-   ){
+    ){
         $URIString = "https://$Gridmaster/wapi/$WapiVersion/$($this._ref)"
         $return = Invoke-RestMethod -Uri $URIString -Method Delete -WebSession $Session
         return $return
