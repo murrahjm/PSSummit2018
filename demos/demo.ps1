@@ -48,3 +48,12 @@ New-IBDNSARecord -name server3.domain.com -comment 'newrecord' -IPAddress 10.0.0
 Get-ibdnsarecord -name server1 | Remove-IBDNSARecord
 get-ibdnsarecord -name server2 | Set-IBDNSARecord -Comment 'updated comment'
 
+#
+#azure
+#
+$secPassword = 'NeverPutYourPasswordInSourceControl!' | ConvertTo-SecureString -AsPlainText -Force
+login-azurermaccount -subscription "msdn platforms"
+$tenantID = Get-AzureRmSubscription | where-object{$_.name -eq 'MSDN Platforms'} | Select-Object -ExpandProperty TenantID
+$App = New-AzureRmADApplication -DisplayName "infoblox demo PSSummit" -IdentifierUris https://github.com/murrahjm/PSSummit2018 -Password $secPassword
+$azurecred = new-object -typename pscredential -argumentlist $app.ApplicationId.Guid, $secPassword
+Login-AzureRmAccount -Credential $Azurecred -ServicePrincipal -TenantId $TenantID
