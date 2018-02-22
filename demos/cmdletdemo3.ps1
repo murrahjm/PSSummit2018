@@ -16,8 +16,8 @@ Function Set-IBDNSARecord{
         
         [Parameter(Mandatory=$True,ValueFromPipeline=$True,ParameterSetName='byObject')]
         [IB_DNSARecord[]]$Record,
-        #modify to use psboundparameters variable to identify specified parameters
-        [IPAddress]$IPAddress = '0.0.0.0',
+
+		[IPAddress]$IPAddress = '0.0.0.0',
 
         [String]$Comment = "unspecified",
 

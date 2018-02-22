@@ -50,29 +50,14 @@ Function Get-IBDNSARecord {
 		} else {
 			write-verbose "Existing session to $script:IBgridmaster found"
         }
-        #
-        Write-Verbose "$FunctionName`:  Connecting to Infoblox device $script:IBgridmaster to retrieve Views"
-        Try {
-            $IBViews = Get-IBView -Type DNSView
-        } Catch {
-            Write-error "Unable to connect to Infoblox device $script:IBgridmaster.  Error code:  $($_.exception)" -ea Stop
-			return
-        }
-        If ($View){
-            Write-Verbose "$FunctionName`:  Validating View parameter against list from Infoblox device"
-            If ($IBViews.name -cnotcontains $View){
-                $ViewList = $ibviews.name -join ', '
-                write-error "Invalid data for View parameter.  Options are $ViewList" -ea Stop
-            }
-        }
     }
 	PROCESS{
 		If ($pscmdlet.ParameterSetName -eq 'byQuery') {
 			Write-Verbose "$FunctionName`:  Performing query search for A Records"
-			[IB_DNSARecord]::Get($Script:IBGridmaster,$Script:IBSession,$Script:IBWapiVersion,$Name,$IPAddress,$Comment,$ExtAttributeQuery,$Zone,$View,$Strict,$MaxResults)
+			[IB_DNSARecord]::Get($script:IBGridmaster,$script:IBSession,$script:IBWapiVersion,$Name,$IPAddress,$Comment,$ExtAttributeQuery,$Zone,$View,$Strict,$MaxResults)
 		} else {
 			Write-Verbose "$FunctionName`: Querying $script:IBgridmaster for A record with reference string $_ref"
-			[IB_DNSARecord]::Get($Script:IBGridmaster,$Script:IBSession,$Script:IBWapiVersion,$_ref)
+			[IB_DNSARecord]::Get($script:IBGridmaster,$script:IBSession,$script:IBWapiVersion,$_ref)
 		}
 	}
 	END{}
