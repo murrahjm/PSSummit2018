@@ -14,7 +14,6 @@ add-type @"
 Function New-IBWebSession {
     Param(
         [Parameter(Mandatory=$True)]
-        [Validatescript({If($_){Test-IBGridmaster $_ -quiet}})]
         [ValidateNotNullorEmpty()]
         [String]$Gridmaster,
 
@@ -28,7 +27,7 @@ Function New-IBWebSession {
     )
     $URI = "https://$gridmaster/wapi/$Wapiversion/grid"
     write-verbose "URIString:  $URI"
-    Invoke-RestMethod -uri $URI -Credential $Credential -SessionVariable global:IBSession | out-null
+    Invoke-RestMethod -uri $URI -Credential $Credential -SessionVariable script:IBSession | out-null
     $script:IBGridmaster = $Gridmaster
     $script:IBWapiVersion = $WapiVersion
     new-object psobject -property @{

@@ -1,5 +1,5 @@
 . .\classdemo1.ps1
-
+New-IBWebSession -Gridmaster "$gridmastername`.$location`.cloudapp.azure.com" -Credential $IBCred
 #authentication
 $IBSession
 $IBGridmaster
@@ -14,8 +14,9 @@ $record
 $Record | get-member
 
 #show set and delete overloads
-$record[0].delete
+$record.set
 $record[0].set
+$record[0].delete
 
 #inheritance
 . .\ClassDemoInheritance2.ps1
@@ -36,6 +37,7 @@ $record[0].ToString()
 
 #cmdlets
 Get-IBDNSARecord -Name Server1
+
 get-ibdnsarecord -name server1 -comment 'the other one'
 
 New-IBDNSARecord -name server3.domain.com -comment 'newrecord' -IPAddress 10.0.0.3
