@@ -43,7 +43,7 @@ Class IB_DNSARecord {
     }
     #endregion
     #region Get methods
-		static [IB_DNSARecord] Get (
+	static [IB_DNSARecord] Get (
 		[String]$Gridmaster,
 		[Object]$Session,
 		[String]$WapiVersion,

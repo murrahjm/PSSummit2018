@@ -29,6 +29,7 @@ $RefRecord
 $RefRecord | get-member
 
 $record2
+$record2 | gm
 $record2[0].ToString()
 $record[0].ToString()
 
@@ -54,7 +55,7 @@ get-ibdnsarecord -name server2 | Set-IBDNSARecord -Comment 'updated comment'
 #
 login-azurermaccount -subscription "msdn platforms"
 $secPassword = 'NeverPutYourPasswordInSourceControl!' | ConvertTo-SecureString -AsPlainText -Force
-$App = New-AzureRmADApplication -DisplayName "infoblox api automation account" -IdentifierUris https://github.com/infobloxcmdletsTest -Password $secPassword
+$App = New-AzureRmADApplication -DisplayName "infoblox api automation account22" -IdentifierUris https://git6hub.com/infobloxcmdletsTest -Password $secPassword
 #
 $azurecred = new-object -typename pscredential -argumentlist $app.ApplicationId.Guid, $secPassword
 $tenantID = Get-AzureRmSubscription | where-object{$_.name -eq 'MSDN Platforms'} | Select-Object -ExpandProperty TenantID

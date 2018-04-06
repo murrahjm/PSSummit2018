@@ -19,7 +19,7 @@ $location = 'southcentralus'
 $RGName = 'PSSummit-Infoblox'
 New-AzureRMResourceGroup -name $RGName -Location $location
 New-AzureRmResourceGroupDeployment -ResourceGroupName $RGName -TemplateFile ".\AzureDeploy.json" -virtualMachines_TestGridmaster_adminPassword 'Password1234' -location $location
-
+install-module infobloxcmdlets -scope CurrentUser
 New-IBWebSession -Gridmaster "$gridmastername`.$location`.cloudapp.azure.com" -Credential $IBCred
 
 New-ibdnszone -fqdn domain.com -confirm:$False -Verbose
