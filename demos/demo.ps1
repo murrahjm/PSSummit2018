@@ -29,6 +29,7 @@ $RefRecord
 $RefRecord | get-member
 
 $record2
+$record2 | gm
 $record2[0].ToString()
 $record[0].ToString()
 
