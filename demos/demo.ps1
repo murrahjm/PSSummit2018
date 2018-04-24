@@ -54,8 +54,15 @@ get-ibdnsarecord -name server2 | Set-IBDNSARecord -Comment 'updated comment'
 #
 login-azurermaccount -subscription "msdn platforms"
 $secPassword = 'NeverPutYourPasswordInSourceControl!' | ConvertTo-SecureString -AsPlainText -Force
-$App = New-AzureRmADApplication -DisplayName "infoblox api automation account" -IdentifierUris https://github.com/infobloxcmdletsTest -Password $secPassword
+$App = New-AzureRmADApplication -DisplayName "infoblox Cmdlets" -IdentifierUris https://github.com/infobloxcmdlets -Password $secPassword
+$sp = New-AzureRmADServicePrincipal -ApplicationId $app.ApplicationId.Guid -Password $secPassword
+# We need to grant contributor rights to the subscription that we want our resources in.
+# We'll leave this as a manual choice, run the below command to see the subscriptions, 
+# and select the subscription ID that you want for the next step
+Get-AzureRMSubscription
+$SubscriptionID = '' # <-- Enter your subscription ID here.
+New-AzureRmRoleAssignment -RoleDefinitionName contributor -ServicePrincipalName $sp.ApplicationId -Scope "/subscriptions/$subscriptionID"
 #
 $azurecred = new-object -typename pscredential -argumentlist $app.ApplicationId.Guid, $secPassword
-$tenantID = Get-AzureRmSubscription | where-object{$_.name -eq 'MSDN Platforms'} | Select-Object -ExpandProperty TenantID
+$tenantID = Get-AzureRMSubscription -SubscriptionId $SubscriptionID | Select-Object -ExpandProperty TenantID
 Login-AzureRmAccount -Credential $Azurecred -ServicePrincipal -TenantId $TenantID
